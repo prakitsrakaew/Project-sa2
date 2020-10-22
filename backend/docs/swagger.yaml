@@ -1,0 +1,511 @@
+basePath: /api/v1
+definitions:
+  controllers.Bill:
+    properties:
+      billingstatus:
+        type: integer
+      employee:
+        type: integer
+      price:
+        type: integer
+      repairinvoice:
+        type: integer
+      time:
+        type: integer
+    type: object
+  ent.Bill:
+    properties:
+      edges:
+        $ref: '#/definitions/ent.BillEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the BillQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+      price:
+        description: Price holds the value of the "price" field.
+        type: integer
+      time:
+        description: Time holds the value of the "time" field.
+        type: integer
+    type: object
+  ent.BillEdges:
+    properties:
+      billingstatus:
+        $ref: '#/definitions/ent.Billingstatus'
+        description: Billingstatus holds the value of the Billingstatus edge.
+        type: object
+      employee:
+        $ref: '#/definitions/ent.Employee'
+        description: Employee holds the value of the Employee edge.
+        type: object
+      repairinvoice:
+        $ref: '#/definitions/ent.Repairinvoice'
+        description: Repairinvoice holds the value of the Repairinvoice edge.
+        type: object
+    type: object
+  ent.Billingstatus:
+    properties:
+      billingstatusname:
+        description: Billingstatusname holds the value of the "billingstatusname" field.
+        type: string
+      edges:
+        $ref: '#/definitions/ent.BillingstatusEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the BillingstatusQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+    type: object
+  ent.BillingstatusEdges:
+    properties:
+      billingstatuss:
+        description: Billingstatuss holds the value of the billingstatuss edge.
+        items:
+          $ref: '#/definitions/ent.Bill'
+        type: array
+    type: object
+  ent.Employee:
+    properties:
+      edges:
+        $ref: '#/definitions/ent.EmployeeEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the EmployeeQuery when eager-loading is set.
+        type: object
+      employeeemail:
+        description: Employeeemail holds the value of the "employeeemail" field.
+        type: string
+      employeename:
+        description: Employeename holds the value of the "employeename" field.
+        type: string
+      id:
+        description: ID of the ent.
+        type: integer
+      password:
+        description: Password holds the value of the "password" field.
+        type: string
+    type: object
+  ent.EmployeeEdges:
+    properties:
+      employees:
+        description: Employees holds the value of the employees edge.
+        items:
+          $ref: '#/definitions/ent.Bill'
+        type: array
+    type: object
+  ent.Repairinvoice:
+    properties:
+      deviceid:
+        description: Deviceid holds the value of the "deviceid" field.
+        type: integer
+      edges:
+        $ref: '#/definitions/ent.RepairinvoiceEdges'
+        description: |-
+          Edges holds the relations/edges for other nodes in the graph.
+          The values are being populated by the RepairinvoiceQuery when eager-loading is set.
+        type: object
+      id:
+        description: ID of the ent.
+        type: integer
+      statusrepairid:
+        description: Statusrepairid holds the value of the "statusrepairid" field.
+        type: integer
+      symptomid:
+        description: Symptomid holds the value of the "symptomid" field.
+        type: integer
+      userid:
+        description: Userid holds the value of the "userid" field.
+        type: integer
+    type: object
+  ent.RepairinvoiceEdges:
+    properties:
+      repairinvoices:
+        $ref: '#/definitions/ent.Bill'
+        description: Repairinvoices holds the value of the repairinvoices edge.
+        type: object
+    type: object
+  gin.H:
+    additionalProperties: true
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: This is a sample server for SUT SE 2563
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: SUT SA Example API
+  version: "1.0"
+paths:
+  /billingstatuss:
+    get:
+      description: list billingstatus entities
+      operationId: list-billingstatus
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Billingstatus'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List billingstatus entities
+    post:
+      consumes:
+      - application/json
+      description: Create billingstatus
+      operationId: create-billingstatus
+      parameters:
+      - description: Billingstatus entity
+        in: body
+        name: billingstatus
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Billingstatus'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Billingstatus'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create billingstatus
+  /billingstatuss/{id}:
+    get:
+      description: get billingstatus by ID
+      operationId: get-billingstatus
+      parameters:
+      - description: Billingstatus ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Billingstatus'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a billingstatus entity by ID
+  /bills:
+    get:
+      description: list bill entities
+      operationId: list-bill
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Bill'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List bill entities
+    post:
+      consumes:
+      - application/json
+      description: Create bill
+      operationId: create-bill
+      parameters:
+      - description: Bill entity
+        in: body
+        name: bill
+        required: true
+        schema:
+          $ref: '#/definitions/controllers.Bill'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Bill'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create bill
+  /employees:
+    get:
+      description: list employee entities
+      operationId: list-employee
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Employee'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List employee entities
+    post:
+      consumes:
+      - application/json
+      description: Create employee
+      operationId: create-employee
+      parameters:
+      - description: Employee entity
+        in: body
+        name: employee
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Employee'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Employee'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create employee
+  /employees/{id}:
+    get:
+      description: get employee by ID
+      operationId: get-employee
+      parameters:
+      - description: Employee ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Employee'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a employee entity by ID
+  /repairinvoices:
+    get:
+      description: list repairinvoice entities
+      operationId: list-repairinvoice
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/ent.Repairinvoice'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: List repairinvoice entities
+    post:
+      consumes:
+      - application/json
+      description: Create repairinvoice
+      operationId: create-repairinvoice
+      parameters:
+      - description: Repairinvoice entity
+        in: body
+        name: repairinvoice
+        required: true
+        schema:
+          $ref: '#/definitions/ent.Repairinvoice'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Repairinvoice'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Create repairinvoice
+  /repairinvoices/{id}:
+    get:
+      description: get repairinvoice by ID
+      operationId: get-repairinvoice
+      parameters:
+      - description: Repairinvoice ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/ent.Repairinvoice'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/gin.H'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/gin.H'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/gin.H'
+      summary: Get a repairinvoice entity by ID
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+  BasicAuth:
+    type: basic
+  OAuth2AccessCode:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: accessCode
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Application:
+    flow: application
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+  OAuth2Implicit:
+    authorizationUrl: https://example.com/oauth/authorize
+    flow: implicit
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      write: ' Grants write access'
+    type: oauth2
+  OAuth2Password:
+    flow: password
+    scopes:
+      admin: ' Grants read and write access to administrative information'
+      read: ' Grants read access'
+      write: ' Grants write access'
+    tokenUrl: https://example.com/oauth/token
+    type: oauth2
+swagger: "2.0"
